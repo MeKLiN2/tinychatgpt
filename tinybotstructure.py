@@ -115,19 +115,4 @@ class TinychatBot(pinylib.TinychatRTCClient):
         else:
             error_message = 'Request failed with status code {}: {}'.format(response.status_code, response.text)
             self.send_chat_msg(error_message)
-
-    def do_search_urban_dictionary(self, search_str):
-        if self.is_client_mod:
-            if len(search_str) is 0:
-                self.send_chat_msg('Please specify something to look up.')
-            else:
-                urban = other.urbandictionary_search(search_str)
-                if urban is None:
-                    self.send_chat_msg('Could not find a definition for: %s' % search_str)
-                else:
-                    if len(urban) > 70:
-                        chunks = pinylib.string_util.chunk_string(urban, 70)
-                        for i in range(0, 2):
-                            self.send_chat_msg(chunks[i])
-                    else:
-                        self.send_chat_msg(urban)
+            
