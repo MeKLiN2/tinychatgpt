@@ -47,7 +47,7 @@ class TinychatBot(pinylib.TinychatRTCClient):
 
     def do_ai(self, cmd_arg, max_tokens=150, max_parts=2, delay_between_parts=2, min_response_length=3):
         # Define your OpenAI API key
-        api_key = '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'
+        api_key = 'zk-D1DRCYWEYcSETYWERTYCWtyCETYRPxVxd3po0DCz'
 
         # Define the chat-based API endpoint
         endpoint = 'https://api.openai.com/v1/chat/completions'
