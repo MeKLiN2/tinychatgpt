@@ -7,3 +7,5 @@ difficulties
 sad
 angry
 happy
+wonder
+why
