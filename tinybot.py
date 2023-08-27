@@ -273,9 +273,21 @@ class TinychatBot(pinylib.TinychatRTCClient):
             keywords = [line.strip() for line in file.readlines()]
 
         # Check if any keyword from the file is in the received message.
-        for keyword in keywords:
-            if keyword in msg.lower():  # Convert to lowercase for case-insensitive matching.
-                self.send_chat_msg("Bot detected keyword: {} by {}".format(keyword, self.active_user.nick))
+        #for keyword in keywords:
+            #if keyword in msg.lower():  # Convert to lowercase for case-insensitive matching.
+                #self.send_chat_msg("Bot detected keyword: {} by {}".format(keyword, self.active_user.nick))
+
+        # Call do_ai with msg as the command argument
+        ai_response = self.do_ai(msg)
+
+        # Check if ai_response is not None
+        if ai_response:
+            # Include the user's nickname in the response
+            response_with_nickname = "{}, {}".format(self.active_user.nick, ai_response)
+
+            # Send the AI response with the user's nickname to the active user
+            self.send_chat_msg_to_user(self.active_user.id, response_with_nickname)
+
 
         self.message_counter = getattr(self, "message_counter", 0)
         # Increment the message counter for every message received.
@@ -784,8 +796,8 @@ class TinychatBot(pinylib.TinychatRTCClient):
                 elif cmd == prefix + 'check':
                     threading.Thread(target=self.do_check).start()
 
-                #elif cmd == prefix + '8ball':
-                    #self.do_8ball(cmd_arg)
+                elif cmd == prefix + '8ball':
+                    self.do_8ball(cmd_arg)
                 
                 elif cmd == prefix + 'scope':
                     self.do_scope(cmd_arg)
@@ -2223,7 +2235,7 @@ class TinychatBot(pinylib.TinychatRTCClient):
     def do_ai(self, cmd_arg, max_tokens=150, max_parts=1, delay_between_parts=1, min_response_length=3):
         with self.ai_lock:
         # Define your OpenAI API key
-            api_key = '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'
+            api_key = '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'
 
         # Define the chat-based API endpoint
             endpoint = 'https://api.openai.com/v1/chat/completions'
